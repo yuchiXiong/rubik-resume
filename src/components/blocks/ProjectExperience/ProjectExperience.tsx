@@ -13,19 +13,14 @@ export interface IProjectExperience {
 
 export interface IProjectExperienceProps {
     experiences: IProjectExperience[]
-    onClick?: () => void
 }
 
 const ProjectExperience: React.FC<IProjectExperienceProps> = ({
                                                                   experiences,
-                                                                  onClick
                                                               }) => {
     const fontSize = DEFAULT_FONT_SIZE;
     const blockItemGap = BLOCK_ITEM_GAP
 
-    const hanldeBlockClick = () => {
-        onClick?.()
-    }
 
     return (
         <section
@@ -37,7 +32,6 @@ const ProjectExperience: React.FC<IProjectExperienceProps> = ({
                     'border border-dashed border-transparent hover:border-blue-500',
                 )
             }
-            onClick={hanldeBlockClick}
         >
             <p className={
                 classNames(

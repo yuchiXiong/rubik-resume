@@ -10,7 +10,6 @@ export interface IBasicInfoProps {
     domain?: string,
     jobTitle?: string,
     experience?: string,
-    onClick?: () => void
 }
 
 const BasicInfo: React.FC<IBasicInfoProps> = ({
@@ -22,7 +21,6 @@ const BasicInfo: React.FC<IBasicInfoProps> = ({
                                                   domain,
                                                   jobTitle,
                                                   experience,
-                                                  onClick,
                                               }) => {
 
     const shouldShowFirstSubTitle = phone || email || city;
@@ -33,9 +31,6 @@ const BasicInfo: React.FC<IBasicInfoProps> = ({
     const secondContent = [weChatId, domain].join(' | ')
     const thirdContent = [experience, jobTitle].join(' | ')
 
-    const hanldeBlockClick = () => {
-        onClick?.();
-    }
 
     return (
         <section
@@ -47,7 +42,6 @@ const BasicInfo: React.FC<IBasicInfoProps> = ({
                     'border border-dashed border-transparent hover:border-blue-500',
                 )
             }
-            onClick={hanldeBlockClick}
         >
             <p className={'font-sans text-base font-semibold'}>{name}</p>
 
