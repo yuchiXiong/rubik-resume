@@ -1,101 +1,153 @@
-import Image from "next/image";
+'use client'
+import {lazy} from "react";
+import classNames from "classnames";
+import {IBasicInfoProps} from "@/components/BasicInfo";
+import {IProfessionalSkillProps} from "@/components/ProfessionalSkill";
+import {IProjectExperienceProps} from "@/components/ProjectExperience";
+import {BLOCK_GAP} from "@/constants/defaultStyles";
+
+const BasicInfo = lazy(() => import('@/components/BasicInfo'))
+const ProfessionalSkill = lazy(() => import('@/components/ProfessionalSkill'))
+const ProjectExperience = lazy(() => import('@/components/ProjectExperience'))
+
+const getComponent = (componentKey: string, props: any) => {
+    switch (componentKey) {
+        case "BasicInfo":
+            return <BasicInfo {...props} />
+        case "ProfessionalSkill":
+            return <ProfessionalSkill {...props} />
+        case "ProjectExperience":
+            return <ProjectExperience {...props} />
+        default:
+            return null;
+    }
+}
+
+// 由多个片段组成，每个片段渲染为一个组件
+const SCHEME_MOCK = [
+    {
+        componentKey: 'BasicInfo',
+        props: {
+            name: '熊宇驰 YuChi',
+            phone: '15997627326',
+            email: 'yuchi.xiong@foxmail.com',
+            city: '武汉',
+            weChatId: 'xyc505831526',
+            domain: 'https://xiongyuchi.com',
+            jobTitle: 'Web 前端',
+            experience: '5 年工作经验',
+        } as IBasicInfoProps
+    },
+    {
+        componentKey: 'ProfessionalSkill',
+        props: {
+            list: [
+                '良好的 JavaScript/TypeScript 基础，理解语言特性如原型链，闭包，异步等；',
+                '使用 React 进行系统的开发，了解其哲学与设计思想；',
+                '具备一定的服务端基础，熟练基于 Ruby 语言的服务端开发；',
+                '有技术热情，给 Element Plus 提过 Issue 和 PR;',
+                '坚持输入输出，不定期写博客分享；',
+                '具备基本的英语阅读能力，无心理障碍；'
+            ]
+        } as IProfessionalSkillProps
+    },
+    {
+        componentKey: 'ProjectExperience',
+        props: {
+            experiences: [
+                {
+                    projectName: '作业帮图书',
+                    belongsCompany: '作业帮',
+                    startDate: '2023-04',
+                    endDate: '至今',
+                    city: '武汉',
+                    description: '维护作业帮直播课新业务智能教辅方向的 Hybrid App 与 B 端图书生产系统。',
+                    content: [
+                        '参与 C 端 Hybrid 应用的开发与维护，承接了跟读系列需求与 App 稳定性建设相关工作；',
+                        '参与项目基础能力建设，优化了项目多端定宽适配、日志上报规范、Hybrid 端内外适配等方案，提升了开发的效率与质量；',
+                        '参与图书生产系统从 0 到 1 的建设，大幅降低了作业帮传统教辅业务的生产成本；'
+                    ]
+                },
+                {
+                    projectName: '薄荷营养师',
+                    belongsCompany: '薄荷健康',
+                    startDate: '2021年10月',
+                    endDate: '至今',
+                    city: '上海',
+                    description: '薄荷医疗营养业务线的 C 端小程序，主要提供减脂/血糖相关的营养服务，并通过自有渠道进行电商拓展。前期以小程序为载体验证盈利模式，后期将功能扩展至原生应用：',
+                    content: [
+                        '基于 Taro 进行微信小程序开发；',
+                        '基于 React 进行 H5 页面的开发，封装统一的协议兼容了小程序/H5/App 多端操作；',
+                        '参与产品交互体验优化工作，包括使用 Next.js 服务端渲染优化首屏渲染速度，缓存保活页面后台无感知更新视图等；',
+                        '参与薄荷大前端基础建设工作，完成工具库的升级与替换，推进 TypeScript 迁移；'
+                    ]
+                },
+                {
+                    projectName: 'Datrix 智能数据管理平台',
+                    belongsCompany: '德拓信息',
+                    startDate: '2021-02',
+                    endDate: '2021-09',
+                    city: '上海',
+                    description: '集数据存储、治理、检索、展示等为一体的非结构化数据管理平台：',
+                    content: [
+                        '基于 Umi + Dva 构建；',
+                        '作为前端开发工程师完成了权限、平台配置、标签管理、个人空间、总览模块的研发与维护工作；',
+                        '作为模块负责人跟进完成了总览、分享和收藏模块从确定需求到提测验收各个环节的管理工作；',
+                        '多次主动汇总项目当前的问题与改进意见并在团队内部进行分享，优化了构建稳定性与速度的同时补充了团队 Code Review 的部分代码规范细节；'
+                    ]
+                },
+                {
+                    projectName: '电子音乐板',
+                    belongsCompany: 'Ruby 开发工程师',
+                    startDate: '2019-02',
+                    endDate: '2021-02',
+                    city: '武汉',
+                    description: '聚焦电子音乐的 App ，提供优质的掌上 LaunchPad  模拟体验与教学课程：',
+                    content: [
+                        '基于 React + Ant Design  为产品开发了官网，支持移动端与 PC  端兼容；',
+                        '在以 Ruby  为主要语言的服务端环境中实践了 React  服务端渲染，同时解决了 SEO  和 WebView  场景首屏加载慢的问题； ',
+                        '作为后端开发工程师基于 Rails  开发业务 API  接口服务，持续维护与迭代；',
+                        '基于 Ruby  编写脚本工具，解析了专业编曲软件 Ableton Live  工程并将其转换为客户端资源，解决了公司音乐素材产出效率慢的问题；',
+                        '基于 React + Ant Design  实现的用户反馈系统，支持在线处理用户反馈；',
+                        '主动对前后端代码进行多次小范围重构，优化了多个接口的响应时长，同时在业务稳定后合并整理了用户+支付模块供公司后续项目快速接入；'
+                    ]
+                }
+            ]
+        } as IProjectExperienceProps
+    },
+]
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    const blockGap = BLOCK_GAP;
+
+    return (
+        <div className={
+            classNames(
+                "flex justify-center",
+                "w-screen h-screen overflow-y-scroll py-4",
+                "font-[family-name:var(--font-geist-sans)]",
+                "bg-gray-200"
+            )
+        }>
+            <section
+                style={{
+                    gap: blockGap,
+                }}
+                className={
+                    classNames(
+                        'w-8/12 h-max',
+                        'flex flex-col',
+                        'px-12 py-8',
+                        'bg-white',
+                        "rounded"
+                    )
+                }
+            >
+                {
+                    SCHEME_MOCK.map((item) => getComponent(item.componentKey, item.props))
+                }
+            </section>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+    );
 }
