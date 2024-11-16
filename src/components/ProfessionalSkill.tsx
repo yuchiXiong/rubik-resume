@@ -2,11 +2,18 @@ import classNames from "classnames";
 
 export interface IProfessionalSkillProps {
     list: string[]
+    onClick?: () => void
 }
 
 const ProfessionalSkill: React.FC<IProfessionalSkillProps> = ({
-                                                                  list
+                                                                  list,
+                                                                  onClick
                                                               }) => {
+
+    const hanldeBlockClick = () => {
+        onClick?.();
+    }
+
     return (
         <section
             className={
@@ -18,6 +25,7 @@ const ProfessionalSkill: React.FC<IProfessionalSkillProps> = ({
                     'border border-dashed border-transparent hover:border-blue-500',
                 )
             }
+            onClick={hanldeBlockClick}
         >
             <p className={
                 classNames(

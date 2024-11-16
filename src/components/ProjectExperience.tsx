@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import {BLOCK_GAP, BLOCK_ITEM_GAP, DEFAULT_FONT_SIZE} from '@/constants/defaultStyles'
+import {BLOCK_ITEM_GAP, DEFAULT_FONT_SIZE} from '@/constants/defaultStyles'
 
 export interface IProjectExperience {
     projectName: string;
@@ -13,23 +13,32 @@ export interface IProjectExperience {
 
 export interface IProjectExperienceProps {
     experiences: IProjectExperience[]
+    onClick?: () => void
 }
 
 const ProjectExperience: React.FC<IProjectExperienceProps> = ({
-                                                                  experiences
+                                                                  experiences,
+                                                                  onClick
                                                               }) => {
     const fontSize = DEFAULT_FONT_SIZE;
     const blockItemGap = BLOCK_ITEM_GAP
 
+    const hanldeBlockClick = () => {
+        onClick?.()
+    }
+
     return (
-        <section className={
-            classNames(
-                'flex flex-col ',
-                'rounded',
-                'hover:bg-gray-50 hover:cursor-pointer',
-                'border border-dashed border-transparent hover:border-blue-500',
-            )
-        }>
+        <section
+            className={
+                classNames(
+                    'flex flex-col ',
+                    'rounded',
+                    'hover:bg-gray-50 hover:cursor-pointer',
+                    'border border-dashed border-transparent hover:border-blue-500',
+                )
+            }
+            onClick={hanldeBlockClick}
+        >
             <p className={
                 classNames(
                     'border-b border-solid border-gray-500',
