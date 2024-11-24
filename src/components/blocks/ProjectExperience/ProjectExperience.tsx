@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import {BLOCK_ITEM_GAP, DEFAULT_FONT_SIZE} from '@/constants/defaultStyles'
+import {useSelector} from "@/hooks/useResumeStyle";
 
 export interface IProjectExperience {
     projectName: string;
@@ -12,14 +12,22 @@ export interface IProjectExperience {
 }
 
 export interface IProjectExperienceProps {
+    blockName: string;
     experiences: IProjectExperience[]
 }
 
 const ProjectExperience: React.FC<IProjectExperienceProps> = ({
+                                                                  blockName,
                                                                   experiences,
                                                               }) => {
-    const fontSize = DEFAULT_FONT_SIZE;
-    const blockItemGap = BLOCK_ITEM_GAP
+
+    const {
+        fontSize,
+        blockItemGap
+    } = useSelector(store => ({
+        fontSize: store.fontSize,
+        blockItemGap: store.blockItemGap
+    }))
 
     return (
         <section
@@ -38,7 +46,7 @@ const ProjectExperience: React.FC<IProjectExperienceProps> = ({
                     'font-semibold',
                     'px-2 mb-1'
                 )
-            }>项目经验</p>
+            }>{blockName}</p>
             <div
                 className="flex flex-col"
                 style={{

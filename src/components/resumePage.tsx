@@ -1,8 +1,8 @@
 import {A4_HEIGHT, A4_WIDTH} from "@/utils/page";
 import classNames from "classnames";
 import {getPreviewComponent} from "@/utils/blocks";
-import {BLOCK_GAP} from "@/constants/defaultStyles";
 import {TScheme} from "@/constants/mockSchema";
+import {useSelector} from "@/hooks/useResumeStyle";
 
 export interface IResumePageProps {
     blockList: TScheme[]
@@ -15,7 +15,7 @@ const ResumePage = ({
                     }: IResumePageProps) => {
 
     /** 板块间的间距 */
-    const blockGap = BLOCK_GAP;
+    const blockGap = useSelector(store => store.blockGap)
 
     return (
         <section

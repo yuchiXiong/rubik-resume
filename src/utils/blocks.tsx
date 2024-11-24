@@ -36,6 +36,7 @@ export const getPreviewComponent = (scheme: TScheme | null): ReactElement | null
             return (
                 <ProjectExperience
                     {...props as IProjectExperienceProps}
+                    blockName={scheme.blockName}
                 />
             )
         default:

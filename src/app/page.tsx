@@ -4,8 +4,10 @@ import classNames from "classnames";
 import {SCHEME_MOCK, TScheme} from '@/constants/mockSchema'
 import 'react-modern-drawer/dist/index.css'
 import SettingDrawer from "@/components/SettingDrawer";
-import useSplitPageByScheme from "@/composes/useSplitPageByScheme";
+import useSplitPageByScheme from "@/hooks/useSplitPageByScheme";
 import ResumePage from "@/components/resumePage";
+import Header from "@/components/header";
+import ResumeStyleContext from "@/components/ResumeStyleContext";
 
 export default function Home() {
 
@@ -46,31 +48,40 @@ export default function Home() {
     }
 
     return (
-        <div
-            ref={containerRef}
-            className={classNames(
-                "flex flex-col items-center",
-                "w-screen min-h-screen overflow-y-scroll py-4",
-                "font-[family-name:var(--font-geist-sans)]",
-                "bg-gray-200"
-            )}
-        >
-            {/* 板块设置的抽屉 */}
-            <SettingDrawer
-                visible={currentEditBlock !== null}
-                handleClose={() => setCurrentEditBlock(null)}
-                handleSubmit={handleDrawerSubmit}
-                scheme={currentEditBlock}
-            />
-
-            {splitPageInfo.map((i, index) => (
-                <ResumePage
-                    key={index}
-                    blockList={schemeList.filter(item => i.includes(`#block-${item.id}`))}
-                    handleOpenSettingDrawer={handleOpenSettingDrawer}
+        <ResumeStyleContext>
+            <div
+                ref={containerRef}
+                className={classNames(
+                    "flex flex-col items-center",
+                    "w-full min-h-screen pb-4 pt-24",
+                    "font-[family-name:var(--font-geist-sans)]",
+                    "bg-gray-200"
+                )}
+            >
+                {/* 板块设置的抽屉 */}
+                <SettingDrawer
+                    visible={currentEditBlock !== null}
+                    handleClose={() => setCurrentEditBlock(null)}
+                    handleSubmit={handleDrawerSubmit}
+                    scheme={currentEditBlock}
                 />
-            ))}
-        </div>
+
+                <Header
+                    schemeList={schemeList}
+                    containerRef={containerRef}
+                />
+
+
+                {splitPageInfo.map((i, index) => (
+                    <ResumePage
+                        key={index}
+                        blockList={schemeList.filter(item => i.includes(`#block-${item.id}`))}
+                        handleOpenSettingDrawer={handleOpenSettingDrawer}
+                    />
+                ))}
+            </div>
+        </ResumeStyleContext>
+
 
     );
 }
