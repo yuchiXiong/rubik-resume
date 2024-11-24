@@ -21,7 +21,6 @@ const ProjectExperience: React.FC<IProjectExperienceProps> = ({
     const fontSize = DEFAULT_FONT_SIZE;
     const blockItemGap = BLOCK_ITEM_GAP
 
-
     return (
         <section
             className={

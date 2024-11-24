@@ -26,7 +26,8 @@ const SettingDrawer: React.FC<ISettingDrawerProps> = ({
             onClose={handleClose}
             direction='right'
             style={{
-                width: '30%'
+                width: '30%',
+                maxWidth: '560px'
             }}
         >
             <div
@@ -45,8 +46,8 @@ const SettingDrawer: React.FC<ISettingDrawerProps> = ({
                 >
                 </div>
                 {/* 顶部 */}
-                <nav className='p-4 flex items-center border-b border-gray-100 border-solid'>
-                    <span className='text-base'>{scheme?.blockName}</span>
+                <nav className='p-6 flex items-center border-b border-gray-100 border-solid'>
+                    <span className='text-lg'>{scheme?.blockName}</span>
                     <span
                         className='ml-auto cursor-pointer'
                         onClick={handleClose}

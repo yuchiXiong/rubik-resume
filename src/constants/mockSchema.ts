@@ -34,6 +34,8 @@ const SCHEME_MOCK: [
     IScheme<IBasicInfoProps>,
     IScheme<IProfessionalSkillProps>,
     IScheme<IProjectExperienceProps>,
+    IScheme<IProjectExperienceProps>,
+    IScheme<IProjectExperienceProps>,
 ] = [
     {
         id: '-1',
@@ -177,6 +179,46 @@ const SCHEME_MOCK: [
                         '主动对前后端代码进行多次小范围重构，优化了多个接口的响应时长，同时在业务稳定后合并整理了用户+支付模块供公司后续项目快速接入；'
                     ]
                 }
+            ]
+        }
+    },
+    {
+        id: '-4',
+        componentKey: 'ProjectExperience',
+        blockName: '开源相关',
+        props: {
+            experiences: [
+                {
+                    projectName: 'OICQ',
+                    belongsCompany: 'https://github.com/takayama-lily/oicq/pull/484',
+                    startDate: '',
+                    endDate: '',
+                    city: '武汉',
+                    description: '一个基于 Node.js 的 QQ 机器人协议库，目前 GitHub 有 2.4k star，作为 Contributors 为其贡献了代码。',
+                    content: [
+                        '该 PR 主要解决了语音消息音质差和项目对 ffmpeg 依赖导致部署困难的问题，在翻阅了多个基于 Go/Kotlin 等语言实现的协议库源码后，通过 Node.js 端的 WAA 实现完成了去 ffmpeg 化的音频编码与音质提升。'
+                    ]
+                },
+
+            ]
+        }
+    },
+    {
+        id: '-5',
+        componentKey: 'ProjectExperience',
+        blockName: '教育经历',
+        props: {
+            experiences: [
+                {
+                    projectName: '湖北大学知行学院',
+                    belongsCompany: '软件工程 本科 计算机信息工程系',
+                    startDate: '2015-09',
+                    endDate: '2019-06',
+                    city: '武汉',
+                    description: '',
+                    content: []
+                },
+
             ]
         }
     },

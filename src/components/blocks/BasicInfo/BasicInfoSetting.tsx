@@ -36,7 +36,7 @@ const BasicInfoSetting: React.FC<IBasicInfoSettingProps> = ({
     return (
         <section className='flex flex-1 relative'>
             <Form.Root
-                className="flex flex-col flex-1 p-4 "
+                className="flex flex-col flex-1 px-6 py-4"
                 onSubmit={handleReactFormSubmit(onSubmit)}
             >
                 {(scheme.rules || []).map(rule => (

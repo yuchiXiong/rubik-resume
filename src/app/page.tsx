@@ -1,24 +1,32 @@
 'use client'
-import {useState} from "react";
+import {useRef, useState} from "react";
 import classNames from "classnames";
-import {BLOCK_GAP} from "@/constants/defaultStyles";
 import {SCHEME_MOCK, TScheme} from '@/constants/mockSchema'
 import 'react-modern-drawer/dist/index.css'
 import SettingDrawer from "@/components/SettingDrawer";
-import {getPreviewComponent} from "@/utils/blocks";
-
+import useSplitPageByScheme from "@/composes/useSplitPageByScheme";
+import ResumePage from "@/components/resumePage";
 
 export default function Home() {
 
-    const blockGap = BLOCK_GAP;
 
+    /** 当前正在编辑的板块 */
     const [currentEditBlock, setCurrentEditBlock] = useState<TScheme | null>(null)
+    /** 简历数据 Scheme */
     const [schemeList, setSchemeList] = useState<TScheme[]>(JSON.parse(JSON.stringify(SCHEME_MOCK)))
+    const containerRef = useRef<HTMLDivElement | null>(null);
 
+    const splitPageInfo = useSplitPageByScheme({
+        schemeList,
+        containerRef,
+    });
+
+    /** 打开对应板块的设置抽屉 */
     const handleOpenSettingDrawer = (scheme: TScheme): void => {
         setCurrentEditBlock(scheme)
     }
 
+    /** 提交数据变更，合并至页面 */
     const handleDrawerSubmit = (scheme: TScheme) => {
 
         const _schemeList: TScheme[] = schemeList.map(i => {
@@ -37,16 +45,17 @@ export default function Home() {
         setCurrentEditBlock(null)
     }
 
-
     return (
-        <div className={
-            classNames(
-                "flex justify-center",
-                "w-screen h-screen overflow-y-scroll py-4",
+        <div
+            ref={containerRef}
+            className={classNames(
+                "flex flex-col items-center",
+                "w-screen min-h-screen overflow-y-scroll py-4",
                 "font-[family-name:var(--font-geist-sans)]",
                 "bg-gray-200"
-            )
-        }>
+            )}
+        >
+            {/* 板块设置的抽屉 */}
             <SettingDrawer
                 visible={currentEditBlock !== null}
                 handleClose={() => setCurrentEditBlock(null)}
@@ -54,28 +63,13 @@ export default function Home() {
                 scheme={currentEditBlock}
             />
 
-            <section
-                style={{
-                    gap: blockGap,
-                }}
-                className={
-                    classNames(
-                        'w-8/12 h-max',
-                        'flex flex-col',
-                        'px-12 py-8',
-                        'bg-white',
-                        "rounded"
-                    )
-                }
-            >
-                {
-                    schemeList.map((item) => (
-                        <div key={item.id} onClick={() => handleOpenSettingDrawer(item)}>
-                            {getPreviewComponent(item)}
-                        </div>
-                    ))
-                }
-            </section>
+            {splitPageInfo.map((i, index) => (
+                <ResumePage
+                    key={index}
+                    blockList={schemeList.filter(item => i.includes(`#block-${item.id}`))}
+                    handleOpenSettingDrawer={handleOpenSettingDrawer}
+                />
+            ))}
         </div>
 
     );
