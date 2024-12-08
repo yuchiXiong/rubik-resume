@@ -14,10 +14,10 @@
     "@radix-ui/react-form": "^0.1.0",
     "@radix-ui/react-select": "^2.1.2",
     "classnames": "^2.5.1",
-    "next": "15.0.3",
+    "next": "15.0.4",
     "print-js": "^1.6.0",
-    "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "react-hook-form": "^7.53.2",
     "react-modern-drawer": "^1.4.0"
   },

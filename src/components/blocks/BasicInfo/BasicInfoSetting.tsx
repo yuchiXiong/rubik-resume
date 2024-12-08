@@ -25,7 +25,6 @@ const BasicInfoSetting: React.FC<IBasicInfoSettingProps> = ({
         defaultValues: scheme.props
     })
     const onSubmit: SubmitHandler<IBasicInfoProps> = (data) => {
-        console.log(data)
         handleSubmit({
             ...scheme,
             props: data

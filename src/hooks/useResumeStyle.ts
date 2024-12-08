@@ -1,6 +1,6 @@
 import {createContext, useContext, useReducer} from "react";
 
-const DEFAULT_FONT_SIZE = 13;
+const DEFAULT_FONT_SIZE = 14;
 
 /** 同一个类型的板块间的上下间距 */
 const BLOCK_ITEM_GAP = 10;
