@@ -121,6 +121,7 @@ const SCHEME_MOCK: [
         componentKey: 'ProjectExperience',
         blockName: '项目经验',
         props: {
+            blockName: '项目经验',
             experiences: [
                 {
                     projectName: '作业帮图书',
@@ -187,6 +188,7 @@ const SCHEME_MOCK: [
         componentKey: 'ProjectExperience',
         blockName: '开源相关',
         props: {
+            blockName: '开源相关',
             experiences: [
                 {
                     projectName: 'OICQ',
@@ -208,6 +210,7 @@ const SCHEME_MOCK: [
         componentKey: 'ProjectExperience',
         blockName: '教育经历',
         props: {
+            blockName: '教育经历',
             experiences: [
                 {
                     projectName: '湖北大学知行学院',

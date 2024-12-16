@@ -1,7 +1,8 @@
 'use client'
-import {useRef, useState} from "react";
+
+import { useRef, useState } from "react";
 import classNames from "classnames";
-import {SCHEME_MOCK, TScheme} from '@/constants/mockSchema'
+import { SCHEME_MOCK, TScheme } from '@/constants/mockSchema'
 import 'react-modern-drawer/dist/index.css'
 import SettingDrawer from "@/components/SettingDrawer";
 import useSplitPageByScheme from "@/hooks/useSplitPageByScheme";
@@ -10,8 +11,6 @@ import Header from "@/components/header";
 import ResumeStyleContext from "@/components/ResumeStyleContext";
 
 export default function Home() {
-
-
     /** 当前正在编辑的板块 */
     const [currentEditBlock, setCurrentEditBlock] = useState<TScheme | null>(null)
     /** 简历数据 Scheme */
@@ -81,7 +80,5 @@ export default function Home() {
                 ))}
             </div>
         </ResumeStyleContext>
-
-
     );
 }

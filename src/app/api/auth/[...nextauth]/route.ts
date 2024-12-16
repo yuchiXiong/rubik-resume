@@ -1,4 +1,4 @@
-import NextAuth from "next-auth"
+import NextAuth, { DefaultSession } from "next-auth"
 // import { getServerSession } from "next-auth/next"
 // import { Session } from "next-auth"
 import { authOptions } from "@/utils/auth-config"
@@ -7,6 +7,9 @@ declare module "next-auth" {
   interface Session {
     accessToken?: string
     expires: string
+    user: {
+      username?: string
+    } & DefaultSession["user"]
   }
 }
 
