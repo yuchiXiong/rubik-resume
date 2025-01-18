@@ -1,84 +1,23 @@
-'use client'
+import { getSchema, checkRepoExist } from "@/services/schema";
+import HomeApp from "./components/app";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/utils/auth-config";
+import * as radash from 'radash'
 
-import { useRef, useState } from "react";
-import classNames from "classnames";
-import { SCHEME_MOCK, TScheme } from '@/constants/mockSchema'
-import 'react-modern-drawer/dist/index.css'
-import SettingDrawer from "@/components/SettingDrawer";
-import useSplitPageByScheme from "@/hooks/useSplitPageByScheme";
-import ResumePage from "@/components/resumePage";
-import Header from "@/components/header";
-import ResumeStyleContext from "@/components/ResumeStyleContext";
+export default async function Home() {
+	const [err, session] = await radash.try(getServerSession)(authOptions);
 
-export default function Home() {
-    /** 当前正在编辑的板块 */
-    const [currentEditBlock, setCurrentEditBlock] = useState<TScheme | null>(null)
-    /** 简历数据 Scheme */
-    const [schemeList, setSchemeList] = useState<TScheme[]>(JSON.parse(JSON.stringify(SCHEME_MOCK)))
-    const containerRef = useRef<HTMLDivElement | null>(null);
+	let pageStatus = 'unauthenticated'
+	if (err || !session?.accessToken) {
+		pageStatus = 'unauthenticated'
+		return <HomeApp schemaList={[]} pageStatus={pageStatus} />
+	} else {
+		// const [err, data] = await radash.try(getRepoInfo)();
+		const repoData = await checkRepoExist();
+		console.log(repoData)
+		const data = await getSchema();
+		console.log(data);
+		return <HomeApp schemaList={data.data} pageStatus={pageStatus} />
+	}
 
-    const splitPageInfo = useSplitPageByScheme({
-        schemeList,
-        containerRef,
-    });
-
-    /** 打开对应板块的设置抽屉 */
-    const handleOpenSettingDrawer = (scheme: TScheme): void => {
-        setCurrentEditBlock(scheme)
-    }
-
-    /** 提交数据变更，合并至页面 */
-    const handleDrawerSubmit = (scheme: TScheme) => {
-
-        const _schemeList: TScheme[] = schemeList.map(i => {
-            if (i.id === scheme.id) {
-                return {
-                    ...i,
-                    props: {
-                        ...scheme.props
-                    }
-                } as TScheme
-            } else {
-                return i;
-            }
-        })
-        setSchemeList(_schemeList)
-        setCurrentEditBlock(null)
-    }
-
-    return (
-        <ResumeStyleContext>
-            <div
-                ref={containerRef}
-                className={classNames(
-                    "flex flex-col items-center",
-                    "w-full min-h-screen pb-4 pt-24",
-                    "font-[family-name:var(--font-geist-sans)]",
-                    "bg-gray-200"
-                )}
-            >
-                {/* 板块设置的抽屉 */}
-                <SettingDrawer
-                    visible={currentEditBlock !== null}
-                    handleClose={() => setCurrentEditBlock(null)}
-                    handleSubmit={handleDrawerSubmit}
-                    scheme={currentEditBlock}
-                />
-
-                <Header
-                    schemeList={schemeList}
-                    containerRef={containerRef}
-                />
-
-
-                {splitPageInfo.map((i, index) => (
-                    <ResumePage
-                        key={index}
-                        blockList={schemeList.filter(item => i.includes(`#block-${item.id}`))}
-                        handleOpenSettingDrawer={handleOpenSettingDrawer}
-                    />
-                ))}
-            </div>
-        </ResumeStyleContext>
-    );
 }

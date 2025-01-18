@@ -1,5 +1,3 @@
-"use client"
-
 export default function NotFound() {
   return (
     <section className="bg-white h-screen w-screen flex items-center justify-center dark:bg-gray-900">

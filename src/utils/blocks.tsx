@@ -1,8 +1,8 @@
-import {IScheme, TScheme} from "@/constants/mockSchema";
-import {lazy, ReactElement} from "react";
-import {IBasicInfoProps} from "@/components/blocks/BasicInfo/BasicInfo";
-import {IProfessionalSkillProps} from "@/components/blocks/ProfessionalSkill/ProfessionalSkill";
-import {IProjectExperienceProps} from "@/components/blocks/ProjectExperience/ProjectExperience";
+import { ISchema, TSchema } from "@/constants/defaultSchema";
+import { lazy, ReactElement } from "react";
+import { IBasicInfoProps } from "@/components/blocks/BasicInfo/BasicInfo";
+import { IProfessionalSkillProps } from "@/components/blocks/ProfessionalSkill/ProfessionalSkill";
+import { IProjectExperienceProps } from "@/components/blocks/ProjectExperience/ProjectExperience";
 
 // 展示组件
 const BasicInfo = lazy(() => import('@/components/blocks/BasicInfo/BasicInfo'))
@@ -15,53 +15,53 @@ const BasicInfoSetting = lazy(() => import('@/components/blocks/BasicInfo/BasicI
 // const ProjectExperience = lazy(() => import('@/components/blocks/ProjectExperience/ProjectExperience'))
 
 
-export const getPreviewComponent = (scheme: TScheme | null): ReactElement | null => {
-    if (!scheme) return null;
+export const getPreviewComponent = (schema: TSchema | null): ReactElement | null => {
+  if (!schema) return null;
 
-    const {componentKey, props} = scheme;
-    switch (componentKey) {
-        case "BasicInfo":
-            return (
-                <BasicInfo
-                    {...props as IBasicInfoProps}
-                />
-            )
-        case "ProfessionalSkill":
-            return (
-                <ProfessionalSkill
-                    {...props as IProfessionalSkillProps}
-                />
-            )
-        case "ProjectExperience":
-            return (
-                <ProjectExperience
-                    {...props as IProjectExperienceProps}
-                    blockName={scheme.blockName}
-                />
-            )
-        default:
-            return null;
-    }
+  const { componentKey, props } = schema;
+  switch (componentKey) {
+    case "BasicInfo":
+      return (
+        <BasicInfo
+          {...props as IBasicInfoProps}
+        />
+      )
+    case "ProfessionalSkill":
+      return (
+        <ProfessionalSkill
+          {...props as IProfessionalSkillProps}
+        />
+      )
+    case "ProjectExperience":
+      return (
+        <ProjectExperience
+          {...props as IProjectExperienceProps}
+          blockName={schema.blockName}
+        />
+      )
+    default:
+      return null;
+  }
 }
 
 export const getSettingComponent = (
-    scheme: TScheme | null,
-    handleClose: () => void,
-    handleSubmit: (scheme: TScheme) => void
+  schema: TSchema | null,
+  handleClose: () => void,
+  handleSubmit: (schema: TSchema) => void
 ): ReactElement | null => {
-    if (!scheme) return null;
+  if (!schema) return null;
 
-    const {componentKey} = scheme;
-    switch (componentKey) {
-        case 'BasicInfo':
-            return (
-                <BasicInfoSetting
-                    scheme={scheme as IScheme<IBasicInfoProps>}
-                    handleClose={handleClose}
-                    handleSubmit={handleSubmit}
-                />
-            )
-        default:
-            return null;
-    }
+  const { componentKey } = schema;
+  switch (componentKey) {
+    case 'BasicInfo':
+      return (
+        <BasicInfoSetting
+          schema={schema as ISchema<IBasicInfoProps>}
+          handleClose={handleClose}
+          handleSubmit={handleSubmit}
+        />
+      )
+    default:
+      return null;
+  }
 }

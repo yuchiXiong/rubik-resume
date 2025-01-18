@@ -1,22 +1,22 @@
-import {TScheme} from '@/constants/mockSchema'
+import {TSchema} from '@/constants/defaultSchema'
 import {MutableRefObject, useEffect, useState} from "react";
 import {getPageHeightByA4} from "@/utils/page";
 import {sleep} from "@/utils/sleep";
 
-export interface IUseSplitPageBySchemeParams {
-    schemeList: TScheme[],
+export interface IUseSplitPageBySchemaParams {
+    schemaList: TSchema[],
     containerRef: MutableRefObject<HTMLDivElement | null>
 }
 
-const useSplitPageByScheme = (
-    params: IUseSplitPageBySchemeParams
+const useSplitPageBySchema = (
+    params: IUseSplitPageBySchemaParams
 ) => {
     const A4_HEIGHT = getPageHeightByA4();
 
-    const {schemeList, containerRef} = params;
+    const {schemaList, containerRef} = params;
 
     const [splitInfo, setSplitInfo] = useState<string[][]>([
-        schemeList.map(i => `#block-${i.id}`)
+        schemaList.map(i => `#block-${i.id}`)
     ])
 
     useEffect(() => {
@@ -31,8 +31,8 @@ const useSplitPageByScheme = (
             let restHeight = A4_HEIGHT;
             let currentPage = 0;
 
-            schemeList.forEach((scheme) => {
-                const id = `#block-${scheme.id}`;
+            schemaList.forEach((schema) => {
+                const id = `#block-${schema.id}`;
                 const currentDom = container.querySelector(id);
                 const currentDomHeight = currentDom?.clientHeight || 0;
 
@@ -50,9 +50,9 @@ const useSplitPageByScheme = (
         })
 
 
-    }, [schemeList])
+    }, [schemaList])
 
     return splitInfo;
 }
 
-export default useSplitPageByScheme
+export default useSplitPageBySchema

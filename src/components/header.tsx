@@ -1,6 +1,6 @@
 import React, { MutableRefObject, useState } from "react"
 import { FindOne, GithubOne } from "@icon-park/react";
-import { TScheme } from "@/constants/mockSchema";
+import { TSchema } from "@/constants/defaultSchema";
 import { getPageHeightByA4 } from "@/utils/page";
 import { useDispatch } from "@/hooks/useResumeStyle";
 import { useSession, signIn, signOut } from "next-auth/react"
@@ -37,12 +37,12 @@ const LoginBtn = () => {
   )
 }
 interface IHeaderProps {
-  schemeList: TScheme[]
+  schemaList: TSchema[]
   containerRef: MutableRefObject<HTMLDivElement | null>
 }
 
 const Header: React.FC<IHeaderProps> = ({
-  schemeList,
+  schemaList,
   containerRef,
 }) => {
 
@@ -62,16 +62,16 @@ const Header: React.FC<IHeaderProps> = ({
     }
     if (!containerRef.current) return;
 
-    const allSchemeHeight = schemeList.reduce((sum, cur) => {
+    const allSchemaHeight = schemaList.reduce((sum, cur) => {
       const currentTargetHeight = containerRef.current?.querySelector(`#block-${cur.id}`)?.clientHeight || 0;
       return currentTargetHeight + sum;
     }, 0)
 
-    if (allSchemeHeight > onePageHeight) {
+    if (allSchemaHeight > onePageHeight) {
       console.log('Behavior: 当前内容过多，无法一纸化')
       return;
     } else {
-      updateBlockGap((onePageHeight - allSchemeHeight) / schemeList.length);
+      updateBlockGap((onePageHeight - allSchemaHeight) / schemaList.length);
       setIsOnePage(true);
     }
   }
