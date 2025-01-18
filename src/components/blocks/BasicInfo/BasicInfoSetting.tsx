@@ -1,4 +1,4 @@
-import { ERulesItemHtmlType, ISchema, TSchema } from "@/constants/defaultSchema";
+import { ERulesItemHtmlType, IBlockSettingRules, ISchema, TSchema } from "@/constants/defaultSchema";
 import { IBasicInfoProps } from "@/components/blocks/BasicInfo/BasicInfo";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as Form from "@radix-ui/react-form";
@@ -11,6 +11,65 @@ export interface IBasicInfoSettingProps {
   handleClose: () => void;
   handleSubmit: (schema: TSchema) => void;
 }
+
+const BASIC_INFO_SETTING_FORM_SCHEMA: IBlockSettingRules<IBasicInfoProps>[] = [
+  {
+    key: "name",
+    label: "姓名",
+    required: true,
+    htmlType: ERulesItemHtmlType.Input,
+    options: [],
+  },
+  {
+    key: "phone",
+    label: "电话",
+    required: false,
+    htmlType: ERulesItemHtmlType.Input,
+    options: [],
+  },
+  {
+    key: "email",
+    label: "邮箱",
+    required: false,
+    htmlType: ERulesItemHtmlType.Input,
+    options: [],
+  },
+  {
+    key: "city",
+    label: "现居城市",
+    required: false,
+    htmlType: ERulesItemHtmlType.Input,
+    options: [],
+  },
+  {
+    key: "weChatId",
+    label: "微信",
+    required: false,
+    htmlType: ERulesItemHtmlType.Input,
+    options: [],
+  },
+  {
+    key: "domain",
+    label: "个人网站",
+    required: false,
+    htmlType: ERulesItemHtmlType.Input,
+    options: [],
+  },
+  {
+    key: "jobTitle",
+    label: "期望职位",
+    required: false,
+    htmlType: ERulesItemHtmlType.Input,
+    options: [],
+  },
+  {
+    key: "experience",
+    label: "当前状态",
+    required: false,
+    htmlType: ERulesItemHtmlType.Input,
+    options: [],
+  },
+];
 
 const BasicInfoSetting: React.FC<IBasicInfoSettingProps> = ({
   schema,
@@ -39,7 +98,7 @@ const BasicInfoSetting: React.FC<IBasicInfoSettingProps> = ({
         className="flex flex-col flex-1 px-6 py-4"
         onSubmit={handleReactFormSubmit(onSubmit)}
       >
-        {(schema.rules || []).map(rule => (
+        {BASIC_INFO_SETTING_FORM_SCHEMA.map(rule => (
           <Controller
             key={rule.key}
             name={rule.key}

@@ -2,6 +2,7 @@ import { IBasicInfoProps } from "@/components/blocks/BasicInfo/BasicInfo";
 import { IProfessionalSkillProps } from "@/components/blocks/ProfessionalSkill/ProfessionalSkill";
 import { IProjectExperienceProps } from "@/components/blocks/ProjectExperience/ProjectExperience";
 
+/** 编辑抽屉里的元素类型 */
 export enum ERulesItemHtmlType {
   Input = "input",
   Select = "select",
@@ -19,15 +20,15 @@ export interface ISchema<
   id: string;
   componentKey: string;
   blockName: string;
-  props: T;
-  // todo 这里要改回去的，不能是可选
-  rules?: {
-    key: keyof T;
-    label: string;
-    required: boolean;
-    htmlType: ERulesItemHtmlType;
-    options: IRulesOptionItem[];
-  }[];
+  props: Omit<T, "blockName">;
+}
+
+export interface IBlockSettingRules<T> {
+  key: keyof T;
+  label: string;
+  required: boolean;
+  htmlType: ERulesItemHtmlType;
+  options: IRulesOptionItem[];
 }
 
 export type TSchema =
@@ -38,7 +39,7 @@ export type TSchema =
 const DEFAULT_SCHEMA: [
   ISchema<IBasicInfoProps>,
   ISchema<IProfessionalSkillProps>,
-  ISchema<IProjectExperienceProps>,
+  ISchema<IProjectExperienceProps>
 ] = [
   {
     id: "-1",
@@ -54,64 +55,6 @@ const DEFAULT_SCHEMA: [
       jobTitle: "Web 前端",
       experience: "5 年工作经验",
     },
-    rules: [
-      {
-        key: "name",
-        label: "姓名",
-        required: true,
-        htmlType: ERulesItemHtmlType.Input,
-        options: [],
-      },
-      {
-        key: "phone",
-        label: "电话",
-        required: false,
-        htmlType: ERulesItemHtmlType.Input,
-        options: [],
-      },
-      {
-        key: "email",
-        label: "邮箱",
-        required: false,
-        htmlType: ERulesItemHtmlType.Input,
-        options: [],
-      },
-      {
-        key: "city",
-        label: "现居城市",
-        required: false,
-        htmlType: ERulesItemHtmlType.Input,
-        options: [],
-      },
-      {
-        key: "weChatId",
-        label: "微信",
-        required: false,
-        htmlType: ERulesItemHtmlType.Input,
-        options: [],
-      },
-      {
-        key: "domain",
-        label: "个人网站",
-        required: false,
-        htmlType: ERulesItemHtmlType.Input,
-        options: [],
-      },
-      {
-        key: "jobTitle",
-        label: "期望职位",
-        required: false,
-        htmlType: ERulesItemHtmlType.Input,
-        options: [],
-      },
-      {
-        key: "experience",
-        label: "当前状态",
-        required: false,
-        htmlType: ERulesItemHtmlType.Input,
-        options: [],
-      },
-    ],
   },
   {
     id: "-2",
@@ -133,7 +76,6 @@ const DEFAULT_SCHEMA: [
     componentKey: "ProjectExperience",
     blockName: "项目经验",
     props: {
-      blockName: "项目经验",
       experiences: [
         {
           projectName: "作业帮图书",

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import {useSelector} from "@/hooks/useResumeStyle";
+import { useSelector } from "@/hooks/useResumeStyle";
 
 export interface IProjectExperience {
     projectName: string;
@@ -17,9 +17,9 @@ export interface IProjectExperienceProps {
 }
 
 const ProjectExperience: React.FC<IProjectExperienceProps> = ({
-                                                                  blockName,
-                                                                  experiences,
-                                                              }) => {
+    blockName,
+    experiences,
+}) => {
 
     const {
         fontSize,
@@ -67,7 +67,7 @@ const ProjectExperience: React.FC<IProjectExperienceProps> = ({
                     >
                         {/* 项目名 - 时间 */}
                         <p className='flex items-center'>
-                            <span style={{fontSize: fontSize + 2}} className='font-semibold'>{item.projectName}</span>
+                            <span style={{ fontSize: fontSize + 2 }} className='font-semibold'>{item.projectName}</span>
                             <span className={'ml-auto'}>{item.startDate} - {item.endDate}</span>
                         </p>
                         {/* 公司 - 地址   */}

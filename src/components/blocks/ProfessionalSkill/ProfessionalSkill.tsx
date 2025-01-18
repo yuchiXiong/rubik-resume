@@ -5,8 +5,8 @@ export interface IProfessionalSkillProps {
 }
 
 const ProfessionalSkill: React.FC<IProfessionalSkillProps> = ({
-                                                                  list,
-                                                              }) => {
+    list,
+}) => {
 
 
     return (
