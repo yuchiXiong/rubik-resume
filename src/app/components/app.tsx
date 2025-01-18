@@ -58,7 +58,7 @@ const HomeApp: React.FC<IHomeAppProps> = (props) => {
         ref={containerRef}
         className={classNames(
           "flex flex-col items-center",
-          "w-full min-h-screen pb-24 pt-24",
+          "w-full min-h-screen pb-20 pt-24",
           "font-[family-name:var(--font-geist-sans)]",
           "bg-gray-200"
         )}

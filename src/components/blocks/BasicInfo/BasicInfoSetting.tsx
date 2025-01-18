@@ -4,6 +4,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as Form from "@radix-ui/react-form";
 // import getSettingFormItemComponent from "@/utils/setting-form-item";
 import classNames from "classnames";
+import Button from "@/components/primitive/button";
 
 export interface IBasicInfoSettingProps {
   schema: ISchema<IBasicInfoProps>,
@@ -97,16 +98,8 @@ const BasicInfoSetting: React.FC<IBasicInfoSettingProps> = ({
             'absolute left-0 bottom-0'
           )}
         >
-          <button
-            className='w-max bg-gray-300 text-white rounded px-4 py-1 cursor-pointer ml-auto mr-4'
-            type="submit"
-            onClick={handleClose}
-          >取消
-          </button>
-          <input
-            className='w-max bg-green-600 text-white rounded px-4 py-1 cursor-pointer'
-            type='submit'
-          />
+          <Button className="ml-auto" type='secondary' onClick={handleClose}>取消</Button>
+          <Button className="ml-4" type='primary' htmlType="submit">提交</Button>
         </div>
       </Form.Root>
     </section>
