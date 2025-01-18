@@ -7,6 +7,7 @@ export enum ERulesItemHtmlType {
   Input = "input",
   Select = "select",
   Textarea = "textarea",
+  RichText = "RichText"
 }
 
 export interface IRulesOptionItem {
@@ -61,14 +62,7 @@ const DEFAULT_SCHEMA: [
     componentKey: "ProfessionalSkill",
     blockName: "专业技能",
     props: {
-      list: [
-        "良好的 JavaScript/TypeScript 基础，理解语言特性如原型链，闭包，异步等；",
-        "使用 React 进行系统的开发，了解其哲学与设计思想；",
-        "具备一定的服务端基础，熟练基于 Ruby 语言的服务端开发；",
-        "有技术热情，给 Element Plus 提过 Issue 和 PR;",
-        "坚持输入输出，不定期写博客分享；",
-        "具备基本的英语阅读能力，无心理障碍；",
-      ],
+      content: '<ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>良好的 JavaScript/TypeScript 基础，理解语言特性如原型链，闭包，异步等；</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>使用 React 进行系统的开发，了解其哲学与设计思想；</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>具备一定的服务端基础，熟练基于 Ruby 语言的服务端开发；</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>有技术热情，给 Element Plus 提过 Issue 和 PR;</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>坚持输入输出，不定期写博客分享；</li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>具备基本的英语阅读能力，无心理障碍；</li></ol>',
     },
   },
   {

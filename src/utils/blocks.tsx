@@ -11,7 +11,7 @@ const ProjectExperience = lazy(() => import('@/components/blocks/ProjectExperien
 
 // 展示组件对应的设置组件
 const BasicInfoSetting = lazy(() => import('@/components/blocks/BasicInfo/BasicInfoSetting'))
-// const ProfessionalSkill = lazy(() => import('@/components/blocks/ProfessionalSkill/ProfessionalSkill'))
+const ProfessionalSkillSetting = lazy(() => import('@/components/blocks/ProfessionalSkill/ProfessionalSkillSetting'))
 // const ProjectExperience = lazy(() => import('@/components/blocks/ProjectExperience/ProjectExperience'))
 
 
@@ -57,6 +57,14 @@ export const getSettingComponent = (
       return (
         <BasicInfoSetting
           schema={schema as ISchema<IBasicInfoProps>}
+          handleClose={handleClose}
+          handleSubmit={handleSubmit}
+        />
+      )
+    case 'ProfessionalSkill':
+      return (
+        <ProfessionalSkillSetting
+          schema={schema as ISchema<IProfessionalSkillProps>}
           handleClose={handleClose}
           handleSubmit={handleSubmit}
         />

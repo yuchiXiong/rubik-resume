@@ -1,11 +1,11 @@
 import classNames from "classnames";
 
 export interface IProfessionalSkillProps {
-    list: string[]
+    content: string
 }
 
 const ProfessionalSkill: React.FC<IProfessionalSkillProps> = ({
-    list,
+    content,
 }) => {
 
 
@@ -28,18 +28,14 @@ const ProfessionalSkill: React.FC<IProfessionalSkillProps> = ({
                     'mb-1'
                 )
             }>专业技能</p>
-            <ul className={
-                classNames(
-                    'list-disc',
-                    'pl-4'
-                )
-            }>
-                {list.map((item, index) => (
-                    <li key={index} className={classNames(
-                        'text-xs text-gray-800'
-                    )}>{item}</li>
-                ))}
-            </ul>
+            <div>
+                <div className={
+                    classNames(
+                        'ql-container ql-snow ql-editor',
+                        '!border-none !p-0'
+                    )
+                } dangerouslySetInnerHTML={{ __html: content }} />
+            </div>
         </section>
     )
 }

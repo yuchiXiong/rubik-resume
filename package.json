@@ -23,7 +23,8 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-hook-form": "^7.53.2",
-    "react-modern-drawer": "^1.4.0"
+    "react-modern-drawer": "^1.4.0",
+    "react-quill-new": "^3.3.3"
   },
   "devDependencies": {
     "@types/node": "^20",
