@@ -29,6 +29,7 @@ const SettingDrawer: React.FC<ISettingDrawerProps> = ({
         width: '30%',
         maxWidth: '560px'
       }}
+      lockBackgroundScroll={true}
     >
       <div
         className={classNames(
