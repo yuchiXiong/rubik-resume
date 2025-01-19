@@ -5,6 +5,7 @@ import classNames from "classnames";
 import { TSchema } from '@/constants/defaultSchema'
 import 'react-modern-drawer/dist/index.css'
 import SettingDrawer from "@/components/SettingDrawer";
+import BlockControlDrawer from "@/components/BlockControlDrawer";
 import useSplitPageBySchema from "@/hooks/useSplitPageBySchema";
 import ResumePage from "@/components/resumePage";
 import Header from "@/components/header";
@@ -85,6 +86,14 @@ const HomeApp: React.FC<IHomeAppProps> = (props) => {
             schema={schemaList}
             schemaInfo={currentEditBlockInfo}
           />
+
+          {/* 板块控制抽屉 */}
+          {/* <BlockControlDrawer
+            handleClose={() => setCurrentEditBlockInfo({ blockId: '', subBlockId: '' })}
+            handleSubmit={handleDrawerSubmit}
+            schema={schemaList}
+            schemaInfo={currentEditBlockInfo}
+          /> */}
 
           <Header
             schemaList={schemaList}
