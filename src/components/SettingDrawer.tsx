@@ -34,9 +34,6 @@ const SettingDrawer: React.FC<ISettingDrawerProps> = ({
 
   const currentBlock = schema.find(item => item.id === schemaInfo.blockId);
 
-  if (!currentBlock) return null;
-
-
   const getSettingComponent = (): ReactElement | null => {
     const _schema = schema.find((item) => item.id === schemaInfo.blockId);
 
@@ -87,33 +84,35 @@ const SettingDrawer: React.FC<ISettingDrawerProps> = ({
       }}
       lockBackgroundScroll={true}
     >
-      <div
-        className={classNames(
-          'relative',
-          'flex flex-col',
-          'h-screen'
-        )}
-      >
+      {currentBlock && (
         <div
-          style={{
-            backgroundImage: "url('https://www.tailwindcss.cn/_next/static/media/docs@30.8b9a76a2.avif')",
-            backgroundSize: 'cover',
-          }}
-          className='w-full h-28 absolute pointer-events-none'
+          className={classNames(
+            'relative',
+            'flex flex-col',
+            'h-screen'
+          )}
         >
-        </div>
-        {/* 顶部 */}
-        <nav className='p-6 flex items-center border-b border-gray-100 border-solid'>
-          <span className='text-lg'>{currentBlock?.blockName}</span>
-          <span
-            className='ml-auto cursor-pointer'
-            onClick={handleClose}
+          <div
+            style={{
+              backgroundImage: "url('https://www.tailwindcss.cn/_next/static/media/docs@30.8b9a76a2.avif')",
+              backgroundSize: 'cover',
+            }}
+            className='w-full h-28 absolute pointer-events-none'
           >
-            <CloseSmall theme="outline" size="24" fill="#333" />
-          </span>
-        </nav>
-        {getSettingComponent(schema, schemaInfo, handleClose, handleSubmit)}
-      </div>
+          </div>
+          {/* 顶部 */}
+          <nav className='p-6 flex items-center border-b border-gray-100 border-solid'>
+            <span className='text-lg'>{currentBlock?.blockName}</span>
+            <span
+              className='ml-auto cursor-pointer'
+              onClick={handleClose}
+            >
+              <CloseSmall theme="outline" size="24" fill="#333" />
+            </span>
+          </nav>
+          {getSettingComponent()}
+        </div>
+      )}
     </ReactModernDrawer>
   )
 }
