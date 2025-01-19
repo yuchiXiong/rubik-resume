@@ -9,15 +9,24 @@ export interface ISettingDrawerProps {
   visible: boolean;
   handleClose: () => void;
   handleSubmit: (schema: TSchema) => void;
-  schema: TSchema | null;
+  schema: TSchema[];
+  schemaInfo: {
+    blockId: string;
+    subBlockId?: string;
+  }
 }
 
 const SettingDrawer: React.FC<ISettingDrawerProps> = ({
   visible,
   handleClose,
   handleSubmit,
-  schema
+  schema,
+  schemaInfo
 }) => {
+
+  const currentBlock = schema.find(item => item.id === schemaInfo.blockId);
+
+  if (!currentBlock) return null;
 
 
   return (
@@ -48,7 +57,7 @@ const SettingDrawer: React.FC<ISettingDrawerProps> = ({
         </div>
         {/* 顶部 */}
         <nav className='p-6 flex items-center border-b border-gray-100 border-solid'>
-          <span className='text-lg'>{schema?.blockName}</span>
+          <span className='text-lg'>{currentBlock?.blockName}</span>
           <span
             className='ml-auto cursor-pointer'
             onClick={handleClose}
@@ -56,7 +65,7 @@ const SettingDrawer: React.FC<ISettingDrawerProps> = ({
             <CloseSmall theme="outline" size="24" fill="#333" />
           </span>
         </nav>
-        {getSettingComponent(schema, handleClose, handleSubmit)}
+        {getSettingComponent(schema, schemaInfo, handleClose, handleSubmit)}
       </div>
     </ReactModernDrawer>
   )

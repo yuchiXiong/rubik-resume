@@ -40,6 +40,7 @@ const ProfessionalSkillSetting: React.FC<IProfessionalSkillSettingProps> = ({
     handleSubmit({
       ...schema,
       props: {
+        ...schema.props,
         content: value,
       }
     });

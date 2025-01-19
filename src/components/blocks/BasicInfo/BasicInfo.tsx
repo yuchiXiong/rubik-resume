@@ -10,18 +10,22 @@ export interface IBasicInfoProps {
     domain?: string,
     jobTitle?: string,
     experience?: string,
+
+    handleBlockClick: () => void,
 }
 
 const BasicInfo: React.FC<IBasicInfoProps> = ({
-                                                  name,
-                                                  phone,
-                                                  email,
-                                                  city,
-                                                  weChatId,
-                                                  domain,
-                                                  jobTitle,
-                                                  experience,
-                                              }) => {
+    name,
+    phone,
+    email,
+    city,
+    weChatId,
+    domain,
+    jobTitle,
+    experience,
+
+    handleBlockClick,
+}) => {
 
     const shouldShowFirstSubTitle = phone || email || city;
     const shouldShowSecondSubTitle = weChatId || domain;
@@ -42,6 +46,7 @@ const BasicInfo: React.FC<IBasicInfoProps> = ({
                     'border border-dashed border-transparent hover:border-blue-500',
                 )
             }
+            onClick={handleBlockClick}
         >
             <p className={'font-sans text-base font-semibold'}>{name}</p>
 

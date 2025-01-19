@@ -8,17 +8,18 @@ export interface IProjectExperience {
     endDate?: string;
     city?: string;
     description?: string;
-    content?: string[];
 }
 
 export interface IProjectExperienceProps {
     blockName: string;
     experiences: IProjectExperience[]
+    handleBlockClick: (subBlockId: string) => void;
 }
 
 const ProjectExperience: React.FC<IProjectExperienceProps> = ({
     blockName,
     experiences,
+    handleBlockClick,
 }) => {
 
     const {
@@ -64,6 +65,7 @@ const ProjectExperience: React.FC<IProjectExperienceProps> = ({
                             'px-2',
                             'border border-dashed border-transparent hover:border-red-800',
                         )}
+                        onClick={() => handleBlockClick(index.toString())}
                     >
                         {/* 项目名 - 时间 */}
                         <p className='flex items-center'>
@@ -75,12 +77,18 @@ const ProjectExperience: React.FC<IProjectExperienceProps> = ({
                             <span>{item.belongsCompany}</span>
                             <span className={'ml-auto'}>{item.city}</span>
                         </p>
-                        <p>{item.description}</p>
-                        <ul className='pl-4'>
-                            {item.content?.map((item, index) => (
-                                <li className='list-disc' key={index}>{item}</li>
-                            ))}
-                        </ul>
+                        <div>
+                            <div
+                                className={
+                                    classNames(
+                                        'ql-container ql-snow ql-editor',
+                                        '!border-none !p-0'
+                                    )
+                                }
+                                dangerouslySetInnerHTML={{
+                                    __html: item.description || ''
+                                }} />
+                        </div>
                     </div>
                 ))}
             </div>

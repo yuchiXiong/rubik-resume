@@ -2,10 +2,14 @@ import classNames from "classnames";
 
 export interface IProfessionalSkillProps {
     content: string
+    blockName: string
+    handleBlockClick: () => void
 }
 
 const ProfessionalSkill: React.FC<IProfessionalSkillProps> = ({
     content,
+    blockName,
+    handleBlockClick
 }) => {
 
 
@@ -20,6 +24,7 @@ const ProfessionalSkill: React.FC<IProfessionalSkillProps> = ({
                     'border border-dashed border-transparent hover:border-blue-500',
                 )
             }
+            onClick={handleBlockClick}
         >
             <p className={
                 classNames(
@@ -27,7 +32,7 @@ const ProfessionalSkill: React.FC<IProfessionalSkillProps> = ({
                     'font-semibold',
                     'mb-1'
                 )
-            }>专业技能</p>
+            }>{blockName}</p>
             <div>
                 <div className={
                     classNames(

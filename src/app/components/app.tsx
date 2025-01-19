@@ -18,8 +18,14 @@ export interface IHomeAppProps {
 }
 
 const HomeApp: React.FC<IHomeAppProps> = (props) => {
-  /** 当前正在编辑的板块 */
-  const [currentEditBlock, setCurrentEditBlock] = useState<TSchema | null>(null)
+  /** 当前正在编辑的板块信息 */
+  const [currentEditBlockInfo, setCurrentEditBlockInfo] = useState<{
+    blockId: string;
+    subBlockId?: string;
+  }>({
+    blockId: "",
+    subBlockId: "",
+  })
   /** 简历数据 Schema */
   const [schemaList, setSchemaList] = useState<TSchema[]>(props.schemaList)
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -30,8 +36,11 @@ const HomeApp: React.FC<IHomeAppProps> = (props) => {
   });
 
   /** 打开对应板块的设置抽屉 */
-  const handleOpenSettingDrawer = (schema: TSchema): void => {
-    setCurrentEditBlock(schema)
+  const handleOpenSettingDrawer = (blockId: string, subBlockId?: string): void => {
+    setCurrentEditBlockInfo({
+      blockId,
+      subBlockId,
+    })
   }
 
   /** 提交数据变更，合并至页面 */
@@ -50,7 +59,10 @@ const HomeApp: React.FC<IHomeAppProps> = (props) => {
       }
     })
     setSchemaList(_schemaList)
-    setCurrentEditBlock(null)
+    setCurrentEditBlockInfo({
+      blockId: "",
+      subBlockId: "",
+    })
   }
 
   return (
@@ -67,10 +79,11 @@ const HomeApp: React.FC<IHomeAppProps> = (props) => {
         >
           {/* 板块设置的抽屉 */}
           <SettingDrawer
-            visible={currentEditBlock !== null}
-            handleClose={() => setCurrentEditBlock(null)}
+            visible={currentEditBlockInfo.blockId !== ''}
+            handleClose={() => setCurrentEditBlockInfo({ blockId: '', subBlockId: '' })}
             handleSubmit={handleDrawerSubmit}
-            schema={currentEditBlock}
+            schema={schemaList}
+            schemaInfo={currentEditBlockInfo}
           />
 
           <Header
