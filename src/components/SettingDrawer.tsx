@@ -1,8 +1,16 @@
 import classNames from "classnames";
 import { CloseSmall } from "@icon-park/react";
 import ReactModernDrawer from "react-modern-drawer";
-import { TSchema } from "@/constants/defaultSchema";
-import { getSettingComponent } from "@/utils/blocks";
+import { ISchema, TSchema } from "@/constants/defaultSchema";
+import { lazy, ReactElement } from "react";
+import { IBasicInfoProps } from "./blocks/BasicInfo/BasicInfo";
+import { IProfessionalSkillProps } from "./blocks/ProfessionalSkill/ProfessionalSkill";
+import { IProjectExperienceProps } from "./blocks/ProjectExperience/ProjectExperience";
+
+// 展示组件对应的设置组件
+const BasicInfoSetting = lazy(() => import('@/components/blocks/BasicInfo/BasicInfoSetting'))
+const ProfessionalSkillSetting = lazy(() => import('@/components/blocks/ProfessionalSkill/ProfessionalSkillSetting'))
+const ProjectExperienceSetting = lazy(() => import('@/components/blocks/ProjectExperience/ProjectExperienceSetting'))
 
 
 export interface ISettingDrawerProps {
@@ -28,6 +36,45 @@ const SettingDrawer: React.FC<ISettingDrawerProps> = ({
 
   if (!currentBlock) return null;
 
+
+  const getSettingComponent = (): ReactElement | null => {
+    const _schema = schema.find((item) => item.id === schemaInfo.blockId);
+
+    console.log('schema', schema);
+
+    if (!_schema) return null;
+
+    const { componentKey } = _schema;
+    switch (componentKey) {
+      case 'BasicInfo':
+        return (
+          <BasicInfoSetting
+            schema={_schema as ISchema<IBasicInfoProps>}
+            handleClose={handleClose}
+            handleSubmit={handleSubmit}
+          />
+        )
+      case 'ProfessionalSkill':
+        return (
+          <ProfessionalSkillSetting
+            schema={_schema as ISchema<IProfessionalSkillProps>}
+            handleClose={handleClose}
+            handleSubmit={handleSubmit}
+          />
+        )
+      case 'ProjectExperience':
+        return (
+          <ProjectExperienceSetting
+            schema={_schema as ISchema<IProjectExperienceProps>}
+            schemaInfo={schemaInfo}
+            handleClose={handleClose}
+            handleSubmit={handleSubmit}
+          />
+        )
+      default:
+        return null;
+    }
+  }
 
   return (
     <ReactModernDrawer
