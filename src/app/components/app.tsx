@@ -10,6 +10,7 @@ import ResumePage from "@/components/resumePage";
 import Header from "@/components/header";
 import ResumeStyleContext from "@/components/ResumeStyleContext";
 import Footer from "@/components/Footer";
+import { ScrollArea } from "@radix-ui/themes";
 
 export interface IHomeAppProps {
   schemaList: TSchema[];
@@ -54,39 +55,42 @@ const HomeApp: React.FC<IHomeAppProps> = (props) => {
 
   return (
     <ResumeStyleContext>
-      <div
-        ref={containerRef}
-        className={classNames(
-          "flex flex-col items-center",
-          "w-full min-h-screen pb-20 pt-24",
-          "font-[family-name:var(--font-geist-sans)]",
-          "bg-gray-200"
-        )}
-      >
-        {/* 板块设置的抽屉 */}
-        <SettingDrawer
-          visible={currentEditBlock !== null}
-          handleClose={() => setCurrentEditBlock(null)}
-          handleSubmit={handleDrawerSubmit}
-          schema={currentEditBlock}
-        />
-
-        <Header
-          schemaList={schemaList}
-          containerRef={containerRef}
-        />
-
-
-        {splitPageInfo.map((i, index) => (
-          <ResumePage
-            key={index}
-            blockList={schemaList.filter(item => i.includes(`#block-${item.id}`))}
-            handleOpenSettingDrawer={handleOpenSettingDrawer}
+      <ScrollArea type="always" scrollbars="vertical" style={{ height: '100vh' }}>
+        <div
+          ref={containerRef}
+          className={classNames(
+            "flex flex-col items-center",
+            "w-full min-h-screen pb-20 pt-24",
+            "font-[family-name:var(--font-geist-sans)]",
+            "bg-gray-200"
+          )}
+        >
+          {/* 板块设置的抽屉 */}
+          <SettingDrawer
+            visible={currentEditBlock !== null}
+            handleClose={() => setCurrentEditBlock(null)}
+            handleSubmit={handleDrawerSubmit}
+            schema={currentEditBlock}
           />
-        ))}
 
-        <Footer handleCancel={() => {}} handleSubmit={() => {}} />
-      </div>
+          <Header
+            schemaList={schemaList}
+            containerRef={containerRef}
+          />
+
+
+          {splitPageInfo.map((i, index) => (
+            <ResumePage
+              key={index}
+              blockList={schemaList.filter(item => i.includes(`#block-${item.id}`))}
+              handleOpenSettingDrawer={handleOpenSettingDrawer}
+            />
+          ))}
+
+          <Footer handleCancel={() => { }} handleSubmit={() => { }} />
+        </div>
+      </ScrollArea>
+
     </ResumeStyleContext>
   );
 }

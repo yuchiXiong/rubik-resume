@@ -54,7 +54,7 @@ const ProfessionalSkillSetting: React.FC<IProfessionalSkillSettingProps> = ({
         onSubmit={handleReactFormSubmit(onSubmit)}
       >
         {PROFESSIONAL_SKILL_SETTING_FORM_SCHEMA.map(rule => (
-          <RichTextEditor value={value} setValue={setValue} />
+          <RichTextEditor key={rule.key} value={value} setValue={setValue} />
         ))}
         <div
           className={classNames(
